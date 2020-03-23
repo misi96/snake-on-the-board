@@ -1,11 +1,14 @@
 <template>
   <div class="board-container">
-    <div class="operator">
-      <span>{{`${operator} --->`}}</span>
+    <div v-if="isOperatorVisible" class="operator">
+      <span class="arrow-body">|</span>
+      <span>{{operator}}</span>
+      <span class="arrow-body">|</span>
+      <span>&#9660;</span>
     </div>
     <table>
       <tr v-for="(row, i) in state" :key="i">
-        <td :class="{ dark: board[i][j] === 'd' }"
+        <td :class="{ dark: isCellDark(i, j) }"
             v-for="(value, j) in row"
             :key="j">
           {{value | showSnake}}
@@ -16,7 +19,7 @@
 </template>
 
 <script>
-  import {snake, board} from '../utils';
+  import {snake} from '../utils';
 
   export default {
     name: 'Board',
@@ -30,8 +33,15 @@
       }
     },
     computed: {
-      board() {
-        return board
+      isOperatorVisible() {
+        return this.operator !== 'Start'
+      }
+    },
+    methods: {
+      isCellDark(row, column) {
+        return !(row === 0 && column === 0)
+          && !(row === 2 && column === 1)
+          && !(row === 2 && column === 3)
       }
     }
   }
@@ -55,12 +65,17 @@
   .board-container {
     display: grid;
     grid-gap: 10px;
-    grid-template-columns: 1fr 1fr;
+    justify-content: center;
   }
 
   .operator {
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
+  }
+
+  .arrow-body {
+    font-weight: bold;
   }
 </style>

@@ -2,8 +2,6 @@
   <div id="app">
     <h1>Snake on the board</h1>
 
-    <button id="search-button" @click="search">Search</button>
-
     <div id="main-board-container">
       <board v-for="(state, index) in states"
              :state="state"
@@ -30,6 +28,9 @@ export default {
       operators:[]
     }
   },
+  mounted() {
+    this.search()
+  },
   methods: {
     search() {
       this.reset()
@@ -41,7 +42,7 @@ export default {
         operators.forEach(operator => {
           state = operator.apply(state.state)
           this.states.push(state.state)
-          this.operators.push(operator.apply.name)
+          this.operators.push(`${operator.apply.name}()`)
         })
 
         this.addStartState()
@@ -52,7 +53,7 @@ export default {
       this.operators = []
     },
     addStartState() {
-      this.operators.unshift('start')
+      this.operators.unshift('Start')
       this.states.unshift(start)
     }
   }
@@ -66,15 +67,11 @@ export default {
     -moz-osx-font-smoothing: grayscale;
     text-align: center;
     color: #2c3e50;
+    min-width: 400px;
   }
 
   #main-board-container {
     display: grid;
-    grid-template-columns: 1fr 1fr;
     grid-gap: 10px;
-  }
-
-  #search-button {
-    margin-bottom: 30px;
   }
 </style>

@@ -1,12 +1,6 @@
 import {BodyParts, Directions} from '../models';
 import {State} from '../state';
 
-export const board = [
-  ['l', 'd', 'd', 'd'],
-  ['d', 'd', 'd', 'd'],
-  ['d', 'l', 'd', 'l']
-]
-
 export const snake = [1, 2, 3, 4, 5, 6, 7, 8, 9]
 
 export function getUnusedOperators(operators, state) {
