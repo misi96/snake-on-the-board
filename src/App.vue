@@ -1,8 +1,8 @@
 <template>
   <div id="app">
-    <div>
-      <button @click="search">Keresés</button>
-    </div>
+    <h1>Snake on the board</h1>
+
+    <button id="search-button" @click="search">Search</button>
 
     <div id="main-board-container">
       <board v-for="(state, index) in states"
@@ -16,8 +16,7 @@
 
 <script>
 import Board from './board/index';
-import {start, State, states} from './state';
-import {operators} from './operators';
+import {start, State} from './state';
 import {search} from './search';
 
 export default {
@@ -25,26 +24,36 @@ export default {
   components: {
     Board
   },
-  computed: {
-    states() {
-      return states
-    },
-    operators() {
-      return operators
+  data() {
+    return {
+      states:[],
+      operators:[]
     }
   },
   methods: {
     search() {
+      this.reset()
       const operators = search()
+
       if(operators.length) {
         let state = new State(start)
+
         operators.forEach(operator => {
-          console.log('state', state)
-          console.log('operator', operator)
           state = operator.apply(state.state)
+          this.states.push(state.state)
+          this.operators.push(operator.apply.name)
         })
-        console.log('VEGSO', state)
+
+        this.addStartState()
       }
+    },
+    reset() {
+      this.states = []
+      this.operators = []
+    },
+    addStartState() {
+      this.operators.unshift('start')
+      this.states.unshift(start)
     }
   }
 }
@@ -57,12 +66,15 @@ export default {
     -moz-osx-font-smoothing: grayscale;
     text-align: center;
     color: #2c3e50;
-    margin-top: 60px;
   }
 
   #main-board-container {
     display: grid;
     grid-template-columns: 1fr 1fr;
     grid-gap: 10px;
+  }
+
+  #search-button {
+    margin-bottom: 30px;
   }
 </style>

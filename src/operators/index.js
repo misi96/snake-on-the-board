@@ -1,5 +1,5 @@
-import {areDomainsValid, getMatrixIndex, snakeBackwardDomain, snakeForwardDomain} from '../utils';
-import {State} from '../state';
+import {isOperatorApplicable, moveSnake} from '../utils';
+import {BodyParts, Directions} from '../models';
 
 class Operator {
   constructor(isApplicable, apply) {
@@ -9,119 +9,67 @@ class Operator {
 }
 
 function isForwardUpApplicable(state) {
-  const [row, column] = getMatrixIndex(1, state)
-  return areDomainsValid(row - 1, column) && state[row - 1][column] === 0
+  return isOperatorApplicable(BodyParts.HEAD, Directions.UP, state)
 }
 
 function isForwardDownApplicable(state) {
-  const [row, column] = getMatrixIndex(1, state)
-  return areDomainsValid(row + 1, column) && state[row + 1][column] === 0
+  return isOperatorApplicable(BodyParts.HEAD, Directions.DOWN, state)
 }
 
 function isForwardRightApplicable(state) {
-  const [row, column] = getMatrixIndex(1, state)
-  return areDomainsValid(row, column + 1) && state[row][column + 1] === 0
+  return isOperatorApplicable(BodyParts.HEAD, Directions.RIGHT, state)
 }
 
 function isForwardLeftApplicable(state) {
-  const [row, column] = getMatrixIndex(1, state)
-  return areDomainsValid(row, column - 1) && state[row][column - 1] === 0
+  return isOperatorApplicable(BodyParts.HEAD, Directions.LEFT, state)
 }
 
 function isBackwardUpApplicable(state) {
-  const [row, column] = getMatrixIndex(9, state)
-  return areDomainsValid(row - 1, column) && state[row - 1][column] === 0
+  return isOperatorApplicable(BodyParts.TAIL, Directions.UP, state)
 }
 
 function isBackwardDownApplicable(state) {
-  const [row, column] = getMatrixIndex(9, state)
-  // console.log('indexes', row, column)
-  //
-  // console.log('DOWNING', state[row + 1][column])
-
-  return areDomainsValid(row + 1, column) && state[row + 1][column] === 0
+  return isOperatorApplicable(BodyParts.TAIL, Directions.DOWN, state)
 }
 
 function isBackwardRightApplicable(state) {
-  const [row, column] = getMatrixIndex(9, state)
-  return areDomainsValid(row, column + 1) && state[row][column + 1] === 0
+  return isOperatorApplicable(BodyParts.TAIL, Directions.RIGHT, state)
 }
 
 function isBackwardLeftApplicable(state) {
-  const [row, column] = getMatrixIndex(9, state)
-  return areDomainsValid(row, column - 1) && state[row][column - 1] === 0
+  return isOperatorApplicable(BodyParts.TAIL, Directions.LEFT, state)
 }
 
 function moveForwardUp(state) {
-  const [row, column] = getMatrixIndex(1, state)
-  return moveForward(row - 1, column, state)
+  return moveSnake(BodyParts.HEAD, Directions.UP, state)
 }
 
 function moveForwardDown(state) {
-  const [row, column] = getMatrixIndex(1, state)
-  return moveForward(row + 1, column, state)
+  return moveSnake(BodyParts.HEAD, Directions.DOWN, state)
 }
 
 function moveForwardRight(state) {
-  const [row, column] = getMatrixIndex(1, state)
-  return moveForward(row, column + 1, state)
+  return moveSnake(BodyParts.HEAD, Directions.RIGHT, state)
 }
 
 function moveForwardLeft(state) {
-  const [row, column] = getMatrixIndex(1, state)
-  return moveForward(row, column - 1, state)
+  return moveSnake(BodyParts.HEAD, Directions.LEFT, state)
 }
 
 function moveBackwardUp(state) {
-  const [row, column] = getMatrixIndex(9, state)
-  return moveBackward(row - 1, column, state)
+  return moveSnake(BodyParts.TAIL, Directions.UP, state)
 }
 
 function moveBackwardDown(state) {
-  const [row, column] = getMatrixIndex(9, state)
-  return moveBackward(row + 1, column, state)
+  return moveSnake(BodyParts.TAIL, Directions.DOWN, state)
 }
 
 function moveBackwardRight(state) {
-  const [row, column] = getMatrixIndex(9, state)
-  return moveBackward(row, column + 1, state)
+  return moveSnake(BodyParts.TAIL, Directions.RIGHT, state)
 }
 
 function moveBackwardLeft(state) {
-  const [row, column] = getMatrixIndex(9, state)
-  return moveBackward(row, column - 1, state)
-}
-
-function moveForward(row, column, state) {
-  const newState = state.map((r, i) => {
-    return r.map((c, j) => {
-      if(row === i && column === j) {
-        return 1
-      } else if (snakeForwardDomain.includes(c)) {
-        return c + 1
-      } else {
-        return 0
-      }
-    })
-  })
-
-  return new State(newState)
-}
-
-function moveBackward(row, column, state) {
-  const newState = state.map((r, i) => {
-    return r.map((c, j) => {
-      if(row === i && column === j) {
-        return 9
-      } else if (snakeBackwardDomain.includes(c)) {
-        return c - 1
-      } else {
-        return 0
-      }
-    })
-  })
-
-  return new State(newState)
+  return moveSnake(BodyParts.TAIL, Directions.LEFT, state)
 }
 
 export const operators = [

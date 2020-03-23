@@ -4,9 +4,11 @@ import {Node} from '../node';
 
 export function getSolution(terminal) {
   const solution = []
+
   for (let n = terminal; n.parentNode != null; n = n.parentNode) {
     solution.push(n.creatorOperator)
   }
+
   return solution.reverse()
 }
 
@@ -18,7 +20,6 @@ export function search() {
   }
 
   const condition = true
-
   while (condition) {
     if(actualNode.unusedOperators.length) {
       const operator = actualNode.unusedOperators.pop()
@@ -33,7 +34,6 @@ export function search() {
 
       if(!isAlreadyReachedNode) {
         actualNode = new Node(newState, actualNode, operator, operators)
-
         if(actualNode.state.isGoal()) {
           return getSolution(actualNode)
         }
