@@ -40,10 +40,15 @@ export default {
         let state = new State(start)
 
         operators.forEach(operator => {
+          console.log('State', state)
+          console.log('Operator', operator)
+
           state = operator.apply(state.state)
           this.states.push(state.state)
           this.operators.push(`${operator.apply.name}()`)
         })
+
+        console.log('Goal state', state)
 
         this.addStartState()
       }
