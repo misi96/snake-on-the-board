@@ -1,4 +1,4 @@
-import {start, State} from '../state';
+import {start, State} from '../states';
 import {operators} from '../operators';
 import {Node} from '../node';
 

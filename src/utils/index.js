@@ -1,5 +1,5 @@
 import {BodyParts, Directions} from '../models';
-import {State} from '../state';
+import {State} from '../states';
 
 export const snake = [1, 2, 3, 4, 5, 6, 7, 8, 9]
 

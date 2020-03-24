@@ -1,7 +1,8 @@
 <template>
   <div id="app">
     <h1>Mesterséges intelligencia alkalmazások</h1>
-    <h2>Kígyó a táblán</h2>
+    <h2>1. feladat - Kígyó a táblán</h2>
+    <h3>Szatmári Mihály</h3>
 
     <div id="main-board-container">
       <board v-for="(state, index) in states"
@@ -15,7 +16,7 @@
 
 <script>
 import Board from './board/index';
-import {start, State} from './state';
+import {start, State} from './states';
 import {search} from './search';
 
 export default {
