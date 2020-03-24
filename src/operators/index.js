@@ -2,7 +2,8 @@ import {isOperatorApplicable, moveSnake} from '../utils';
 import {BodyParts, Directions} from '../models';
 
 class Operator {
-  constructor(isApplicable, apply) {
+  constructor(displayName, isApplicable, apply) {
+    this.displayName = displayName
     this.isApplicable = isApplicable
     this.apply = apply
   }
@@ -73,12 +74,12 @@ function moveBackwardLeft(state) {
 }
 
 export const operators = [
-  new Operator(isForwardUpApplicable, moveForwardUp),
-  new Operator(isForwardDownApplicable, moveForwardDown),
-  new Operator(isForwardRightApplicable, moveForwardRight),
-  new Operator(isForwardLeftApplicable, moveForwardLeft),
-  new Operator(isBackwardUpApplicable, moveBackwardUp),
-  new Operator(isBackwardDownApplicable, moveBackwardDown),
-  new Operator(isBackwardRightApplicable, moveBackwardRight),
-  new Operator(isBackwardLeftApplicable, moveBackwardLeft)
+  new Operator('eloreFel', isForwardUpApplicable, moveForwardUp),
+  new Operator('eloreLe', isForwardDownApplicable, moveForwardDown),
+  new Operator('eloreJobbra', isForwardRightApplicable, moveForwardRight),
+  new Operator('eloreBalra', isForwardLeftApplicable, moveForwardLeft),
+  new Operator('hatraFel', isBackwardUpApplicable, moveBackwardUp),
+  new Operator('hatraLe', isBackwardDownApplicable, moveBackwardDown),
+  new Operator('hatraJobbra', isBackwardRightApplicable, moveBackwardRight),
+  new Operator('hatraBalra', isBackwardLeftApplicable, moveBackwardLeft)
 ]

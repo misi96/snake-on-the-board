@@ -1,6 +1,7 @@
 <template>
   <div id="app">
-    <h1>Snake on the board</h1>
+    <h1>Mesterséges intelligencia alkalmazások</h1>
+    <h2>Kígyó a táblán</h2>
 
     <div id="main-board-container">
       <board v-for="(state, index) in states"
@@ -45,7 +46,7 @@ export default {
 
           state = operator.apply(state.state)
           this.states.push(state.state)
-          this.operators.push(`${operator.apply.name}()`)
+          this.operators.push(`${operator.displayName}()`)
         })
 
         console.log('Goal state', state)
